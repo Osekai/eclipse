@@ -1,11 +1,16 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
+
 
 if(isset($_POST['strSearch'])) {
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/config.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/osekaiDB.php");
+
     $beatmaps = array();
     $beatmaps = Database::execSelect("CALL FUNC_GetBeatmaps(?,?)", "is", array($_SESSION['osu']['id'] ?: 1, $_POST['strSearch']));
 
     echo json_encode($beatmaps);
+} else {
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 }
 
 if(isset($_POST['nObject'])) {
