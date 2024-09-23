@@ -601,7 +601,7 @@ async function loadMedal(strMedalName, updateAdminPanel = true) {
 
                 if (best) { extraClasses += "medals__viewpack-best" };
 
-                html += `<a class="medals__viewpack ` + extraClasses + `" href="https://osu.ppy.sh/beatmaps/packs/${individual[i]}" style="--maincol: var(--${gamemode})" target="_blank">
+                html += `<a class="medals__viewpack ` + extraClasses + `" href="https://osu.ppy.sh/beatmaps/packs/${i}" style="--maincol: var(--${gamemode})" target="_blank">
                 <i class="oif-gamemode-${gamemode}"></i>
                 <div class="medals__viewpack-textarea-left">
                     <div class="medals__viewpack-top">` + GetStringRawNonAsync("medals", "beatmap.viewOnOsu") + `</div>
