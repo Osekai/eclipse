@@ -1,6 +1,4 @@
 <?php
-exit;
-ini_set('memory_limit','2048M');
 // Tanza 2023-05-13
 // ? i'm so sorry for this mess, but it takes 118ms to
 // ? do it all so i think it's reasonable lol
@@ -8,22 +6,15 @@ ini_set('memory_limit','2048M');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 
-$cache = Caching::getCache("beatmap_packs");
 
-if($cache != null) {
-    echo $cache;
-    exit;
-}
-
-error_reporting(E_ERROR);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
-include("get_beatmap_pack_count.php");
 
 $packs = Database::execSimpleSelect('SELECT medalid, packid, name, link FROM Medals WHERE packid IS NOT NULL AND packid != "" AND packid != "0" AND packid != "0,0,0,0"');
 
 $gamemodes = ["standard", "taiko", "catch", "mania"];
+
+function getpack($packId) {
+    return Database::execSelect("SELECT * FROM MedalsBeatmapPacks WHERE Id = ?", "i", [$packId])[0];
+}
 
 for($x = 0; $x < count($packs); $x++) {
     $pack = $packs[$x];
@@ -32,10 +23,7 @@ for($x = 0; $x < count($packs); $x++) {
     $fastest_gamemode = null;
     $y = 0;
     foreach($packIds as $packId) {
-        $length = 0;
-        foreach(GetPackPreload($packId) as $beatmap) {
-            $length += $beatmap['Length'];
-        }
+        $length = getpack($packId)['Length'];
         if($length < $fastest_time && $length != 0) {
             $fastest_time = $length;
             $fastest_gamemode = $gamemodes[$y];
@@ -62,22 +50,5 @@ usort($packs,function($first,$second){
     return $first['fastest_time'] > $second['fastest_time'];
 });
 
-// doing this clientside instead, already have the data Somewhere
-/* if(loggedin()) {
-    $user = json_decode(v2_getUser($_SESSION['osu']['id']), true);
-    //echo json_encode($user, JSON_PRETTY_PRINT);
-    for($x = 0; $x < count($packs); $x++) {
-        foreach($user['user_achievements'] as $achieved_medal) {
-            if($achieved_medal['achievement_id'] == $packs[$x]['id']) {
-                $packs[$x]['completed'] = true;
-            } else {
-                $packs[$x]['completed'] == false;
-            }
-        }
-    }
-    //exit;
-} */
 
 echo json_encode($packs);
-
-Caching::saveCache("beatmap_packs", "3000", json_encode($packs));
