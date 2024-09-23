@@ -575,53 +575,29 @@ async function loadMedal(strMedalName, updateAdminPanel = true) {
             resp = xhr.response;
             //console.log(xhr.response);
             resp = JSON.parse(resp);
-            for (var i = 0; i < individual.length; i++) {
+            console.log(resp);
+
+
+            var top = 999999;
+            for (var x in resp) {
+                if(resp[x].Length < top) top = resp[x].Length;   
+            }
+
+            var p = -1;
+            for (var i in resp) {
+                p++;
                 if (individual[i] == 0) continue;
                 best = true;
-                var calcInvalid = false;
 
-                var length = 0;
-                for (var beatmap of resp[i]) {
-                    length += beatmap.Length;
-                }
+                if(resp[i] == null) continue;
+                
 
-                if (length != 0) {
-                    for (var j = 0; j < individual.length; j++) {
-                        // note: packs with no pack for specific gamemode will still
-                        // return that gamemode array, just it'll be empty, so we have
-                        // to check, Just In Case (it fixes this entire routine on
-                        // every beatmap with 1 or more missing gamemodes)
-                        if (resp[j].length != 0) {
-                            let test_length = 0;
-                            for (var beatmap of resp[j]) {
-                                test_length += beatmap.Length;
-                            }
-                            if (test_length != 0) {
-                                if (test_length < length) {
-                                    best = false;
-                                }
-                            } else {
-                                calcInvalid = true;
-                            }
-                        }
-                    }
-                } else {
-                    calcInvalid = true;
-                }
-
-                if (calcInvalid == true) {
-                    best = true;
-                    for (var j = 0; j < individual.length; j++) {
-                        if (resp[j].length != 0) {
-                            if (resp[j].length < resp[i].length) {
-                                best = false;
-                            }
-                        }
-                    }
-                }
-
-                var gamemode = gamemodes[i];
+                var length = resp[i].Length;
+                var gamemode = gamemodes[p];
                 var extraClasses = "";
+
+                if(length > top) best = false;
+
 
                 if (best) { extraClasses += "medals__viewpack-best" };
 
@@ -629,7 +605,7 @@ async function loadMedal(strMedalName, updateAdminPanel = true) {
                 <i class="oif-gamemode-${gamemode}"></i>
                 <div class="medals__viewpack-textarea-left">
                     <div class="medals__viewpack-top">` + GetStringRawNonAsync("medals", "beatmap.viewOnOsu") + `</div>
-                    <div class="medals__viewpack-bottom">${GetStringRawNonAsync("medals", "beatmapPacks.mapCount", [resp[i].length])}</div>
+                    <div class="medals__viewpack-bottom">${GetStringRawNonAsync("medals", "beatmapPacks.mapCount", [resp[i].Count])}</div>
                 </div>
                 `;
 
@@ -1131,6 +1107,7 @@ function loadBeatmapPacks() {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', "/medals/api/beatmap_packs.php")
     xhr.onload = function () {
+        console.log(xhr.response);
         var resp = JSON.parse(xhr.response);
         container.innerHTML = "";
 
