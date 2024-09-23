@@ -54,6 +54,7 @@ function curlRequestUser($strSearch)
     $result = curl_exec($handle);
     $response_code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 
+
     if ($response_code == 404)
         return null;
 
