@@ -598,10 +598,11 @@ async function loadMedal(strMedalName, updateAdminPanel = true) {
 
                 if(length > top) best = false;
 
+                var id = i.substring(1);
 
-                if (best) { extraClasses += "medals__viewpack-best" };
+                if (best && length > 0) { extraClasses += "medals__viewpack-best" };
 
-                html += `<a class="medals__viewpack ` + extraClasses + `" href="https://osu.ppy.sh/beatmaps/packs/${i}" style="--maincol: var(--${gamemode})" target="_blank">
+                html += `<a class="medals__viewpack ` + extraClasses + `" href="https://osu.ppy.sh/beatmaps/packs/${id}" style="--maincol: var(--${gamemode})" target="_blank">
                 <i class="oif-gamemode-${gamemode}"></i>
                 <div class="medals__viewpack-textarea-left">
                     <div class="medals__viewpack-top">` + GetStringRawNonAsync("medals", "beatmap.viewOnOsu") + `</div>
@@ -616,7 +617,7 @@ async function loadMedal(strMedalName, updateAdminPanel = true) {
                 </div>`;
                 } else {
                     html += `<div class="medals__viewpack-textarea-right">
-                    <div class="medals__viewpack-bottom">Pack length not<br>yet calculated.</div>
+                    <div class="medals__viewpack-bottom">Pack length unknown</div>
                 </div>`
                 }
 
