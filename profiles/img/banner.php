@@ -2,8 +2,9 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/osu_api_functions.php");
 // print errors
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 1);
+
+$path = "./profiles/img/";
+
 $svg = "";
 
 // if not being visited through banner.svg, return 403
@@ -21,14 +22,8 @@ $allowedModes = array("osu", "taiko", "fruits", "mania");
 
 
 
-$userinfo = [];
-$userCache = Caching::getCache("profiles_banner_user_" . $userid);
-if ($userCache != null) {
-    $userinfo = (array)json_decode($userCache, true);
-} else {
-    $userinfo = (array)json_decode(v2_getUser($userid), true);
-    Caching::saveCache("profiles_banner_user_" . $userid, 7200, json_encode($userinfo));
-}
+$userinfo = (array)json_decode(v2_getUser($userid), true);
+
 
 
 
@@ -79,7 +74,6 @@ $foregroundStyles = [
 ];
 
 
-
 $user = Database::execSelect("SELECT * FROM ProfilesBanners WHERE UserID = ?", "i", array($userid));
 if ($user == null || count($user) == 0) {
     Database::execOperation("INSERT INTO `ProfilesBanners` (`UserID`, `Background`, `Foreground`, `CustomGradient`, `CustomSolid`, `CustomImage`) VALUES (?, 'clubglows', 'medal-oriented', '', '', '');", "i", array($userid));
@@ -87,6 +81,7 @@ if ($user == null || count($user) == 0) {
 }
 
 $user = $user[0];
+
 
 
 $svg .= '<svg width="1400" height="250" viewBox="0 0 1400 250" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -147,13 +142,14 @@ $y1 = $rot['y1'];
 $x2 = $rot['x2'];
 $y2 = $rot['y2'];
 
-$svg .= file_get_contents("default_goal_colours.svg");
+
+$svg .= file_get_contents($path . "default_goal_colours.svg");
 
 $svg .= $customstyle;
 
-$svg .= file_get_contents($background);
+$svg .= file_get_contents($path . $background);
 
-$svg .= file_get_contents($foreground);
+$svg .= file_get_contents($path . $foreground);
 
 $svg .= '</svg>';
 
@@ -201,6 +197,7 @@ $rarestmedalpercentage = $highestMedal['frequency'];
 // round to XX.XX
 $rarestmedalpercentage = round($rarestmedalpercentage, 2);
 $svg = str_replace("[RMPC]", $rarestmedalpercentage, $svg);
+
 
 function convertImageToB64($image, $cache)
 {

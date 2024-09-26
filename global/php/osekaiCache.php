@@ -27,6 +27,7 @@ class Caching
      */
     public static function saveCache($name, $expiry, $data)
     {
+return;
         // remove all with existing name
         Database::execOperation("DELETE FROM GlobalCache WHERE Title = ?", "s", [$name]);
         // if expiry is not a date, it is a number of seconds

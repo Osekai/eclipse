@@ -492,7 +492,7 @@ function setLanguage(code) {
                 location.reload();
             }
         };
-        xhttp.open("GET", "/api/setLanguage?language=" + code, true);
+        xhttp.open("GET", "/api/setLanguage.php?language=" + code, true);
         xhttp.send();
     });
 }

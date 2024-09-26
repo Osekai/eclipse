@@ -24,7 +24,7 @@ if(isset($_POST['UserID'])) {
 
     $username = $data['username'];
 
-    Database::execOperation("INSERT INTO ProfilesUserinfo (osuID, Username, Rank) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Username = ?, Rank = ?", "isisi", array($id, $username, $rank, $username, $rank));
+    Database::execOperation("INSERT INTO ProfilesUserinfo (osuID, Username, `Rank`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE Username = ?, `Rank` = ?", "isisi", array($id, $username, $rank, $username, $rank));
 }
 
 if(isset($_POST['SearchQuery'])) {
