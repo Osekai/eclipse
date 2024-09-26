@@ -3,7 +3,7 @@ Options +FollowSymlinks
 RewriteEngine On
 
 RewriteBase /
-
+RewriteRule ^home?$ /home/ [R=301,L]
 
 
 # rewrite to NON-WWW

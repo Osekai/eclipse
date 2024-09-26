@@ -115,8 +115,8 @@ if(isset($_POST['bGetComments'])) {
         Comments.ParentCommenter, 
         Coalesce(Comments.ParentComment, 0) AS Parent, 
         Comments.Username, Comments.AvatarURL, 
-        Comments.".$colname." AS MedalID, 
-        GROUP_CONCAT(DISTINCT GroupAssignments.GroupId SEPARATOR ',') as Groups,
+        Comments.`".$colname."` AS MedalID, 
+        GROUP_CONCAT(DISTINCT GroupAssignments.GroupId SEPARATOR ',') as `Groups`,
         (SELECT SUM(Votes.Vote) FROM Votes WHERE Votes.ObjectID = Comments.ID AND Votes.Type = ?) AS VoteSum
         FROM Comments LEFT JOIN Votes ON 
         Votes.ObjectID = Comments.ID AND 

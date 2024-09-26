@@ -49,7 +49,7 @@ foreach ($appsTemp as $appa) {
 $userPermissions = [];
 if(loggedin()) {
     $groups = Database::execSelect("SELECT GroupAssignments.*, Groups.DefaultPermissions FROM GroupAssignments
-    LEFT JOIN Groups ON Groups.ID = GroupAssignments.GroupId
+    LEFT JOIN `Groups` ON `Groups`.ID = GroupAssignments.GroupId
     WHERE UserId = ?", "i", [$_SESSION['osu']['id']]);
     foreach($groups as $group) {
         if($group['DefaultPermissions'] == null) continue;
@@ -156,7 +156,7 @@ function frontend()
         }
         $roles = Database::execSimpleSelect("SELECT * FROM AvailableRoles");
         $medals = Database::execSelect("CALL FUNC_GetMedals(?, '')", "s", ['']);
-        $userGroups = Database::execSimpleSelect("SELECT * FROM Groups");
+        $userGroups = Database::execSimpleSelect("SELECT * FROM `Groups`");
 
 ?>
         <script type="text/javascript">

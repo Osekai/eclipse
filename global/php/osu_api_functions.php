@@ -91,7 +91,7 @@ function v2_getUser($userID, $mode = null, $sendMedals = true, $useAllMedals = t
 
         if ($sendMedals == true) {
             $oUserMedals = Database::execSelect("SELECT * FROM ( " .
-                "SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+                "SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
                 "SELECT Ranking.id " .
                 "FROM Ranking " .
                 "INNER JOIN Medals ON Ranking.rarest_medal = Medals.medalid " .

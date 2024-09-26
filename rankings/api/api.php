@@ -20,16 +20,17 @@ if (isset($_POST['App'])) {
     //    }
     //}
     //Caching::cleanCache();
-    $cache = Caching::getCache("rankings_" . $_POST['App']);
+    //$cache = Caching::getCache("rankings_" . $_POST['App']);
     if ($cache != null) {
-        echo $cache;
-        exit;
+        //echo $cache;
+        //exit;
     }
     // </hubz>
 
     $Rankings;
+
     if ($_POST['App'] == "Users") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -45,7 +46,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.medal_count DESC, MedalRarity.frequency, Ranking.rarest_medal_achieved " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Rarity") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Medals.link, " .
             "Medals.name AS medalname, " .
             "Medals.medalid AS medalid, " .
@@ -57,7 +58,7 @@ if (isset($_POST['App'])) {
             "ORDER BY MedalRarity.frequency, Medals.ordering " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Standard Deviation") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -73,7 +74,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.stdev_pp DESC, Ranking.total_pp DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Total pp") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -88,7 +89,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.total_pp DESC, Ranking.stdev_pp DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Stdev Level") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -104,7 +105,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.stdev_level DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Total Level") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -119,7 +120,7 @@ if (isset($_POST['App'])) {
             "ORDER BY tlevel DESC, Ranking.stdev_pp DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Stdev Accuracy") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -135,7 +136,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.stdev_acc DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Total Accuracy") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -150,7 +151,7 @@ if (isset($_POST['App'])) {
             "ORDER BY tacc DESC, Ranking.stdev_pp DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Replays") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -161,7 +162,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.replays_watched DESC, Ranking.stdev_pp DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Ranked Mapsets") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -172,7 +173,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.ranked_maps DESC, Ranking.id DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Loved Mapsets") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -184,7 +185,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.loved_maps DESC, Ranking.id DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Badges") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -195,7 +196,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.badge_count DESC, Ranking.id DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Subscribers") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -206,7 +207,7 @@ if (isset($_POST['App'])) {
             "ORDER BY Ranking.subscribers DESC, Ranking.ranked_maps DESC, Ranking.loved_maps DESC, Ranking.id DESC " .
             ") t1, (SELECT @r:=0) t2 LIMIT 2500");
     } elseif ($_POST['App'] == "Kudosu") {
-        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS rank, t1.* FROM ( " .
+        $Rankings = Database::execSimpleSelect("SELECT @r := @r+1 AS `rank`, t1.* FROM ( " .
             "SELECT Ranking.country_code AS countrycode, " .
             "Countries.name_long AS country, " .
             "Ranking.name AS username, " .
@@ -227,8 +228,8 @@ if (isset($_POST['App'])) {
     //file_put_contents("cache/" . $_POST['App'] . ".json", json_encode($cache));
 
     // cache for 2 hours
-    Caching::saveCache("rankings_" . $_POST['App'], 7200, json_encode($Rankings));
-    Caching::cleanCache();
+    //Caching::saveCache("rankings_" . $_POST['App'], 7200, json_encode($Rankings));
+    //Caching::cleanCache();
     // </hubz>
 }
 
