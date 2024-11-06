@@ -646,9 +646,17 @@ async function FillData(uid, mode, completeReload = true) {
 
                     oBar.style.width = ((groupings[oAchievement.grouping]["has"] / groupings[oAchievement.grouping]["max"]) * 100) + "%";
 
-                    let oImg = document.createElement("img");
-                    oImg.src = oAchievement.link;
-                    oImg.addEventListener("click", () => medalPopupV2.showMedalFromName(oAchievement.name));
+                    var url = "https://inex.osekai.net/medals/" + encodeURIComponent(oAchievement.name);
+
+                    var img = document.createElement("img");
+                    var oImg = document.createElement("a");
+                    oImg.appendChild(img);
+                    img.src = oAchievement.link;
+
+                    oImg.href = url;
+                    
+
+                    
 
                     if (oAchievement.grouping == "Dedication" && (mode == oAchievement.mode || mode == "all")) {
                         let oList = document.createElement("div");
