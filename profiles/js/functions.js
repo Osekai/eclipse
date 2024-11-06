@@ -483,6 +483,7 @@ async function FillData(uid, mode, completeReload = true) {
             let oImgContainer = document.createElement("a");
             //console.log(oAchievement);
             try {
+                oImgContainer.href = "https://inex.osekai.net/medals/" + encodeURIComponent(oAchievement.name);
                 oImgContainer.addEventListener("click", () => medalPopupV2.showMedalFromName(oAchievement.name));
                 oImgContainer.setAttribute("data-tippy-content-medal-date", new Date(oAchievement.achieved_at).toDateString());
                 // on the left
