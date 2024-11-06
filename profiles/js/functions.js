@@ -652,6 +652,10 @@ async function FillData(uid, mode, completeReload = true) {
                     var oImg = document.createElement("a");
                     oImg.appendChild(img);
                     img.src = oAchievement.link;
+                    
+
+                    oImg.classList.add("tooltip-v2");
+                    oImg.setAttribute("tooltip-content", oAchievement.name);
 
                     oImg.href = url;
                     
