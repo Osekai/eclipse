@@ -1,106 +1,9 @@
 <?php
-
-$name = "Osekai Rankings • Unknown page";
-$description = "uh oh";
-$tags = "";
-
-if (!isset($_GET['ranking'])) {
-    $name = "Osekai Rankings • The best alternative ranking for osu!";
-    $description = "The only place to find alternative osu! rankings for medals, ranked maps, and more. [temp]";
-    $tags = "homepage";
-} else {
-    $type = $_GET['type'];
-
-    if ($_GET['ranking'] == "Medals" && $type == "Users") {
-        $name = "Osekai Rankings • who has the most medals?";
-        $description = "maybe it's you...? find out who has the most medals on osekai rankings!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Medals" && $type == "Rarity") {
-        $name = "Osekai Rankings • what medal is the rarest?";
-        $description = "what medal do people own the least? find out here!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Standard Deviated pp") {
-        $name = "Osekai Rankings • top players sorted by Standard Deviated pp!";
-        $description = "leaderboard using standard deviation across all modes! find out who's the best all mode player!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Total pp") {
-        $name = "Osekai Rankings • top players sorted by total pp across all modes!";
-        $description = "adding all the modes together, this leaderboard is pretty interesting. check it out!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Replays") {
-        $name = "Osekai Rankings • who has the most watched replays?";
-        $description = "how many times has this player been watched through osu!? find out here.";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Stdev Level") {
-        $name = "Osekai Rankings • all osu! players sorted by their standard deviated level!?";
-        $description = "who has the highest level in osu!? find out here!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Stdev Accuracy") {
-        $name = "Osekai Rankings • players sorted by their standard deviated accuracy!";
-        $description = "which player has the best accuracy? find out here!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Total Level") {
-        $name = "Osekai Rankings • who has the highest level?";
-        $description = "who has the highest level in osu!? we have the answer.";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "All Mode" && $type == "Total Accuracy") {
-        $name = "Osekai Rankings • who has the most accuracy?";
-        $description = "who has the most accuracy across all gamemodes in osu!? find out here.";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Mappers" && $type == "Ranked Mapsets") {
-        $name = "Osekai Rankings • the top ranked mappers!";
-        $description = "who has the most ranked maps? it's an interesting question, and we have the answer!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Mappers" && $type == "Loved Mapsets") {
-        $name = "Osekai Rankings • the top loved mappers!";
-        $description = "what mapper has the most loved maps? it's a cool question, and we have the answer!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Mappers" && $type == "Subscribers") {
-        $name = "Osekai Rankings • the top subscribed people!";
-        $description = "Who has the most subscribers? it's a cool question, and we have the answer!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Mappers" && $type == "Kudosu") {
-        $name = "Osekai Rankings • the people with the most kudosu!";
-        $description = "Who has the most kudosu? Osekai Rankings has the answer!";
-        $tags = "homepage";
-    } else if ($_GET['ranking'] == "Badges" && $type == "Badges") {
-        $name = "Osekai Rankings / Badges / Badges • badges";
-        $description = "badges";
-        $tags = "homepage";
-    } else {
-        // we don't really need this
-        //header("HTTP/1.1 301 Moved Permanently");
-        //header("Location: /rankings/");
-        //exit();
-    }
-}
-
 $app = "rankings";
+
+$_SERVER['DOCUMENT_ROOT'] = "/var/www/fastuser/data/www/osekai.net";
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 
-$meta = '<meta charset="utf-8">
-<meta name="msapplication-TileColor" content="#353d55">
-<meta name="theme-color" content="#353d55">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:url" content="' . ROOT_URL . '/rankings" />
-<meta name="description" content="' . $name . '" />
-<meta property="og:title" content="' . $name . '" />
-<meta property="og:description" content="' . $description . '" />
-<meta name="twitter:title" content="' . $name . '" />
-<meta name="twitter:description" content="' . $description . '" />
-<title name="title">' . $name . '</title>
-<meta name="keywords" content="osekai,medals,osu,achievements,rankings,alternative,medal rankings,osekai,the,home,of,more,' . $tags . '">'
-?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-
-<head>
-    <?php
-    echo $meta;
-    echo $head;
     font();
     css();
 
@@ -111,8 +14,10 @@ $meta = '<meta charset="utf-8">
     tippy();
 
     medal_popup_v2();
-    ?>
-</head>
+echo "hi";
+
+?>
+what
 
 <body>
     <div id="oBeatmapInput"></div>
@@ -332,9 +237,11 @@ $meta = '<meta charset="utf-8">
                                         <i class="fas fa-angle-down snapshots__mobile__info snapshots__mobile__info-closed"></i>
                                     </div>
                                 </div>
+
                                 <div class="rankings__mobile__bottom-content">
                                     <div class="osekai__flex_row rankings__mobile__header">
                                         <p><span class="light">medal</span> <span class="strong">completion</span></p>
+
                                         <p class="osekai__left">69%</p>
                                     </div>
                                     <div class="rankings__pb-bar">
@@ -342,10 +249,12 @@ $meta = '<meta charset="utf-8">
 
                                         </div>
                                     </div>
+
                                     <div class="osekai__flex_row rankings__mobile__header">
                                         <p><span class="strong">rarest</span> <span class="light">medal</span></p>
                                     </div>
                                     <p><span class="rankings__mobile__inline-medal"><img src="https://assets.ppy.sh/medals/web/all-secret-jackpot.png"></span><span class="strong">Mappers' Guild Pack IX</span></p>
+
                                 </div>
                             </div>
                         </div> -->

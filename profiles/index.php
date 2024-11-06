@@ -4,6 +4,7 @@ $manual_frontend = true;
 
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 
+
 if (isset($_GET['user'])) {
     //$colBadges = Database::execSelect("SELECT * FROM Badges where id = ?", "i", array($_GET['badge']));
     //include("../global/php/osu_api_functions.php");
@@ -88,11 +89,14 @@ frontend();
 
     font();
     css();
+
         
     xhr_requests();
     osu_api();
     
+
     medal_popup_v2();
+
 
     notification_system();
     comments_system();

@@ -1,4 +1,5 @@
 <?php
+
 include_once($_SERVER['DOCUMENT_ROOT'] . "/config.php");
 
 if (isset($app)) {
@@ -19,8 +20,8 @@ error_reporting(E_ERROR);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require_once('gitInfo.php');
-define("OSEKAI_VERSION", str_replace("\n", "", $gitHash)); // cache invalidation
+//require_once('gitInfo.php');
+//define("OSEKAI_VERSION", str_replace("\n", "", $gitHash)); // cache invalidation
 
 $server = $_SERVER['SERVER_SOFTWARE'];
 if (str_contains($server, "Apache")) {
@@ -31,11 +32,13 @@ if (str_contains($server, "Apache")) {
     define("ENVIRONMENT", "unknown");
 }
 
+
 require_once('osekaiDB.php');
 require_once('osekaiSessionManager.php');
 require_once('osekaiCache.php');
 require_once('osekaiLogging.php');
 require_once('osu_api_functions.php');
+
 
 startSession();
 
@@ -72,7 +75,6 @@ if(loggedin()) {
 
     /* print_r($userPermissions); */
 }
-
 
 function checkPermission($permission) {
     global $userPermissions;
@@ -149,9 +151,9 @@ function frontend()
                 $changed_url = TRUE;
             }
             if ($changed_url) {
-                header("HTTP/1.1 301 Moved Permanently");
-                header("Location: " . $whole_url);
-                exit();
+                //header("HTTP/1.1 301 Moved Permanently");
+                //header("Location: " . $whole_url);
+                //exit();
             }
         }
         $roles = Database::execSimpleSelect("SELECT * FROM AvailableRoles");
@@ -291,9 +293,8 @@ function css()
 
     echo '<link rel="stylesheet" href="' . $path_public . 'css/main.css?v=' . OSEKAI_VERSION . '">';
     echo '<link rel="stylesheet" href="./css/main.css?v=' . OSEKAI_VERSION . '">';
-    if (isExperimental()) {
-        echo '<link rel="stylesheet" href="/global/css/experimental.css?v=' . OSEKAI_VERSION . '">';
-    }
+
+
 
     // set the accent
     if (isset($accent_override)) {
@@ -326,7 +327,7 @@ function css()
 
 function comments_system()
 {
-    tippy();
+    //tippy();
 
     // twemoji for emojis
     echo '<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>';
@@ -345,6 +346,10 @@ function comments_system()
     /* imports comment system
     please import xhr before using this */
     echo '<script rel="preload" type="text/javascript" src="/global/js/comment_system.js?v=' . OSEKAI_VERSION . '"></script>';
+    
+        
+    ob_flush();
+    flush();
 }
 
 function chart_js()
@@ -632,6 +637,7 @@ function tippy()
 {
     global $tippyLoaded;
     if (!$tippyLoaded) {
+    $tippyLoaded = true;
         echo '<script src="/global/js/popper/popper.min.js"></script>
         <script src="/global/js/tippy/tippy-bundle.umd.min.js"></script>';
     }
@@ -652,12 +658,14 @@ function colour_picker()
 
 function medal_popup_v2()
 {
+return;
     include_once($_SERVER['DOCUMENT_ROOT'] . "//global/php/medalHoverV2.php");
 }
 
 
 function isExperimental()
 {
+return false;
     if (MODE == "dev") {
         return true;
     }

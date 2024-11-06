@@ -3,7 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/osu_api_functions.php");
 // print errors
 
-$path = "./profiles/img/";
+$path = "./";
 
 $svg = "";
 
@@ -23,7 +23,6 @@ $allowedModes = array("osu", "taiko", "fruits", "mania");
 
 
 $userinfo = (array)json_decode(v2_getUser($userid), true);
-
 
 
 
@@ -154,6 +153,8 @@ $svg .= file_get_contents($path . $foreground);
 $svg .= '</svg>';
 
 
+//echo $path . $foreground;
+//exit;
 
 $username = $userinfo['username'];
 $pp = $userinfo['statistics']['pp'];
