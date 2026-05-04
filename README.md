@@ -1,3 +1,8 @@
+> [!IMPORTANT]  
+> This version of Osekai is deprecated, we're now working on Osekai Inex! 
+> Eclipse is now feature-locked and will not get further updates going forward - every remaining page will slowly be moved over to the new Inex codebase and given a fresh coat of paint and code.
+> Please see the INEX codebase at https://github.com/osekai/inex
+
 ![](https://raw.githubusercontent.com/Osekai/osekai/main/global/img/cover/medals.jpg)
 # *Osekai*
 Hey there, welcome to the official Osekai repository! We're an open-source website specializing in apps and tools for the rhythm game "[osu!](https://osu.ppy.sh/)"
