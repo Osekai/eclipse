@@ -1,7 +1,8 @@
 <?php
-
+if(!isset($_GET['old'])) {
 header("Location: https://inex.osekai.net/medals/" . $_GET['medal']);
 exit;
+}
 
 $app = "medals";
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");

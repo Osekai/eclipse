@@ -182,39 +182,56 @@ function v2_getUser($userID, $mode = null, $sendMedals = true, $useAllMedals = t
             return null;
 
         if ($sendMedals == true) {
-            $oUserMedals = Database::execSelect("SELECT * FROM ( " .
-                "SELECT @r := @r+1 AS rank, t1.* FROM ( " .
-                "SELECT Ranking.id, " .
-                "ROUND(Ranking.medal_count * 100 / (SELECT COUNT(Medals.medalid) FROM Medals), 2) AS completion " .
-                "FROM Ranking " .
-                "INNER JOIN Medals ON Ranking.rarest_medal = Medals.medalid " .
-                "LEFT JOIN MedalRarity ON MedalRarity.id = Medals.medalid " .
-                "ORDER BY Ranking.medal_count DESC, MedalRarity.frequency  " .
-                ") t1, (SELECT @r:=0) t2 LIMIT 3000 " .
-                ") t3 WHERE id = ?", "i", array($userID));
+            $oUserMedals = Database::execSelect("
+            SELECT * FROM (
+                SELECT @r := @r + 1 AS `rank`, t1.* FROM (
+                    SELECT Ranking.id,
+                        ROUND(Ranking.medal_count * 100 / (SELECT COUNT(Medals.medalid) FROM Medals), 2) AS completion
+                    FROM Ranking
+                    INNER JOIN Medals ON Ranking.rarest_medal = Medals.medalid
+                    LEFT JOIN MedalRarity ON MedalRarity.id = Medals.medalid
+                    ORDER BY Ranking.medal_count DESC, MedalRarity.frequency
+                ) t1
+                JOIN (SELECT @r := 0) t2
+                LIMIT 3000
+            ) t3
+            WHERE id = ?
+        ", "i", array($userID));
+        
+        
         }
 
         $colCatch = curlRequestUser($userID . "/fruits");
 
-        $oUserSPP = Database::execSelect("SELECT * FROM ( " .
-            "SELECT @r := @r+1 AS rank, t1.* FROM ( " .
-            "SELECT id, total_pp AS tpp " .
-            "FROM Ranking " .
-            "ORDER BY total_pp DESC, stdev_pp DESC " .
-            ") t1, (SELECT @r:=0) t2 LIMIT 3000 " .
-            ") t3 WHERE id = ?", "i", array($userID));
+        $oUserSPP = Database::execSelect("
+        SELECT * FROM (
+            SELECT @r := @r+1 AS `rank`, t1.* FROM (
+                SELECT id, total_pp AS tpp
+                FROM Ranking
+                ORDER BY total_pp DESC, stdev_pp DESC
+            ) t1, (SELECT @r:=0) t2
+            LIMIT 3000
+        ) t3
+        WHERE id = ?
+    ", "i", array($userID));
+    
 
         $colTaiko = curlRequestUser($userID . "/taiko");
 
-        $oUserSPPCountry = Database::execSelect("SELECT * FROM ( " .
-            "SELECT @r := @r+1 AS rank, t1.* FROM ( " .
-            "SELECT id, total_pp AS tpp " .
-            "FROM Ranking " .
-            "WHERE Ranking.country_code = ? " .
-            "ORDER BY total_pp DESC, stdev_pp DESC " .
-            ") t1, (SELECT @r:=0) t2 LIMIT 1000 " .
-            ") t3 WHERE id = ?", "si", array($colOsu['country_code'], $userID));
+        $oUserSPPCountry = Database::execSelect("
+        SELECT * FROM (
+            SELECT @r := @r+1 AS `rank`, t1.* FROM (
+                SELECT id, total_pp AS tpp
+                FROM Ranking
+                WHERE country_code = ?
+                ORDER BY total_pp DESC, stdev_pp DESC
+            ) t1, (SELECT @r:=0) t2
+            LIMIT 1000
+        ) t3
+        WHERE id = ?
+    ", "si", array($colOsu['country_code'], $userID));
 
+    
         $colMania = curlRequestUser($userID . "/mania");
 
         $colOsu['max_medals'] = $oMedals[0]['MedalCount'];

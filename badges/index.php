@@ -1,4 +1,9 @@
 <?php
+if(!isset($_GET['bypass'])) {
+header("Location: https://inex.osekai.net/badges");
+exit;
+}
+
 $app = "badges";
 $manual_frontend = true;
 

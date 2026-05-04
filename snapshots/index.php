@@ -414,10 +414,10 @@ if (checkPermission("apps.snapshots.admin")) {
                             </div>
                         </div>
                     </div>
-                    <?php if (loggedin()) { ?>
+                    <?php if (loggedin() && 1 == 0) { ?>
                         <div onclick="openSubmission()" class="snapshots__version-submission osekai__button"><?= GetStringRaw("snapshots", "sidebar.submission"); ?></div>
                     <?php } else { ?>
-                        <div style="pointer-events: all;" class="tooltip-v2" tooltip-content="Please log in to submit a version">
+                        <div style="pointer-events: all;" class="tooltip-v2" tooltip-content="Our systems can not currently accept new versions.">
                             <div class="snapshots__version-submission osekai__button osekai__input-disabled"><?= GetStringRaw("snapshots", "sidebar.submission"); ?></div>
                         </div>
                     <?php } ?>

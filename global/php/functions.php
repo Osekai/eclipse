@@ -294,7 +294,8 @@ function css()
     echo '<link rel="stylesheet" href="' . $path_public . 'css/main.css?v=' . OSEKAI_VERSION . '">';
     echo '<link rel="stylesheet" href="./css/main.css?v=' . OSEKAI_VERSION . '">';
 
-
+    echo '<link rel="stylesheet" href="https://inex.osekai.net/frontend/dist/index.css?v=' . OSEKAI_VERSION . '">';
+    
 
     // set the accent
     if (isset($accent_override)) {
@@ -306,12 +307,13 @@ function css()
     $colour = explode(",", $apps[$app]['color_dark']);
     $colourHsl = rgbToHsl($colour[0], $colour[1], $colour[2]);
     echo '<style>
-    html {
+    html, body {
         --accentdark: ' . $apps[$app]['color_dark'] . ';
         --accent: ' . $apps[$app]['color'] . ';
 
         --accentdark_hue: ' . $colourDarkHsl[0] . 'deg;
         --accent_hue: ' . $colourHsl[0] . 'deg;
+        --hue: ' . $colourHsl[0] . 'deg !important;
         --accent_hue_nodeg: ' . $colourHsl[0] . ';
         --accentdark_saturation: ' . $colourDarkHsl[1] . '%;
         --accent_saturation: ' . $colourHsl[1] . '%;

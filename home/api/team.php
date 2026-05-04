@@ -75,7 +75,6 @@ addMember(
     [
         social("https://discord.com/users/494883957117288448", "Discord"),
         social("https://www.youtube.com/MegaMix_Craft", "Youtube"),
-        social("https://twitter.com/MegaMix_Craft", "Twitter"),
         social("https://github.com/minusQuantumNeko/", "Github"),
         social("https://www.speedrun.com/user/MegaMix_Craft", "Speedrun.com"),
         social("https://bsky.app/profile/megamix.dev", "Bluesky"),
@@ -98,7 +97,6 @@ addMember(
     "??home.team.role.coppertine??",
     null,
     [
-        social("https://twitter.com/shuffler2001", "Twitter"),
         social("https://www.twitch.tv/coppertine", "Twitch"),
         social("https://www.artstation.com/coppertine", "Website")
     ]
@@ -144,7 +142,6 @@ addMember(
     "??home.team.role.generic.moderator??",
     null,
     [
-        social("https://www.twitter.com/bentokage", "Twitter"),
         social("https://www.twitch.tv/bentokage", "Twitch"),
     ]
 );

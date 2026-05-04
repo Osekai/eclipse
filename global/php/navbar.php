@@ -1,3 +1,5 @@
+<script src="https://untone.org/snowflakes.js?5"></script>
+
 <?php
 fontawesome();
 xhr_requests();
@@ -36,8 +38,96 @@ addOtherApp("fas fa-layer-group", "/misc/groups", GetStringRaw("navbar", "otherA
     <?= $apps[$app]['name']; ?>
 </h1>
 
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+    .navbar {
+        font-family: "Outfit", sans-serif;
+    }
+    </style>
+
 <div class="osekai__navbar-container" id="navbar_container">
-    <div class="osekai__navbar">
+<div class="navbar">
+    <div class="navbar-upper">
+        <div class="navbar-left">
+            <a href="/">
+                <img src="https://inex.osekai.net/public/img/branding/icon_monochrome.svg">
+            </a>
+            <div class="mobile">
+                   <div onclick='apps_dropdown()' class="button">
+                    <i class="fas fa-list" style="padding-right: 5px;"></i> Pages
+                </div>
+</div>
+            <div class="navbar-links desktop">
+                <a href="https://inex.osekai.net">home</a>
+                <a href="https://inex.osekai.net/medals">medals</a>
+                <a href="https://osekai.net/rankings">ranking</a>
+                <a href="https://osekai.net/profiles">profiles</a>
+                <a href="https://osekai.net/badges">badges</a>
+                <a href="https://osekai.net/snapshots">snapshots</a>
+            </div>
+        </div>
+        <div class="navbar-right">
+
+        <div class="navbar-pfp-container">
+                    <div class="osekai__navbar-search osekai__navbar-search-inactive" id="search_container">
+                        <input id="search_input" type="text" placeholder="search for something!">
+                        <i class="fas fa-search"></i>
+                        <div id="search_overlay" class="osekai__navbar-search-overlay osekai__navbar-search-overlay-hidden">
+
+                        </div>
+                    </div>
+
+                </div>
+  
+
+                <div class="navbar-pfp-container">
+                    <div class="navbar-right-button tooltip-v2"
+                        onclick='dropdown("osekai__dropdown-settings-hidden", "dropdown-settings-new", 1)'
+                        tooltip-content="<?= GetStringRaw("navbar", "tooltip.settings"); ?>">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+
+            <div class="navbar-pfp-container">
+                <button onclick='dropdown("osekai__nav-dropdown-hidden", "dropdown__user", 1)' dropdown-button="pfp-dropdown"><img class="pfp"
+                                                            src="<?= getpfp(); ?>"
+                                                            alt="Your Profile Picture"></button>
+                <div dropdown="pfp-dropdown" class="navbar-pfp-dropdown navbar-pfp-dropdown-hidden"
+                     id="navbar-profile-dropdown">
+                    <?php
+                    if (loggedin()) {
+                        ?>
+                        <div class="navbar-pfp-dropdown-header">
+                            <img src="<?= getpfp(); ?>"
+                                 alt="Your Profile Picture">
+                            <div>
+                                <h1>
+                                    <?= $_SESSION['osu']['username']; ?>
+                                    <div id="roles"></div>
+                                </h1>
+                            </div>
+                        </div>
+                        <a href="/logout" class="navbar-pfp-dropdown-item"><i data-lucide="log-out"></i>Log Out</a>
+                    <?php } else {
+                        ?>
+                        <a href="/login" class="navbar-pfp-dropdown-item"><i simple-icon="osu"></i> Log in with osu!</a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-trim">
+
+    </div>
+</div>
+    <div class="osekai__navbar hidden">
+    <div class="navbar-pfp-container">
+                    <div class="navbar-right-button tooltip-v2" id="notif__bell__button"
+                        tooltip-content="<?= GetStringRaw("navbar", "tooltip.notifications"); ?>">
+                        <i class="fas fa-bell"></i>
+                        <div class="osekai__notification-counter hidden" id="NotificationCountIcon">0</div>
+                    </div>
+                </div>
         <div class="osekai__navbar-warning hidden" id="cantContactOsu">
             <?= GetStringRaw("navbar", "misc.cantContactOsu"); ?>
         </div>
@@ -88,28 +178,7 @@ addOtherApp("fas fa-layer-group", "/misc/groups", GetStringRaw("navbar", "otherA
                     </div>
                 </div>
 
-                <div class="osekai__navbar-center-right">
-                    <div class="osekai__navbar-search osekai__navbar-search-inactive" id="search_container">
-                        <input id="search_input" type="text" placeholder="search for something!">
-                        <i class="fas fa-search"></i>
-                        <div id="search_overlay" class="osekai__navbar-search-overlay osekai__navbar-search-overlay-hidden">
-
-                        </div>
-                    </div>
-                    <?php if (loggedin()) { ?>
-                        <div class="osekai__navbar-button tooltip-v2" id="notif__bell__button"
-                            tooltip-content="<?= GetStringRaw("navbar", "tooltip.notifications"); ?>">
-                            <i class="fas fa-bell"></i>
-                            <div class="osekai__notification-counter hidden" id="NotificationCountIcon">0</div>
-                        </div>
-                    <?php } ?>
-
-                    <div class="osekai__navbar-button tooltip-v2"
-                        onclick='dropdown("osekai__dropdown-settings-hidden", "dropdown-settings-new", 1)'
-                        tooltip-content="<?= GetStringRaw("navbar", "tooltip.settings"); ?>">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                </div>
+               
             </div>
             <div class="osekai__navbar-right">
                 <img alt="Your profile picture" src="<?= getpfp(); ?>"
@@ -213,12 +282,6 @@ foreach ($apps as $a) {
                 <i class="fas fa-heart"></i>
                 <p>
                     <?= GetStringRaw("navbar", "apps.support"); ?>
-                </p>
-            </a>
-            <a class="osekai__apps-dropdown-mobile-button" href="https://twitter.com/osekaiapp">
-                <i class="fab fa-twitter"></i>
-                <p>
-                    <?= GetStringRaw("navbar", "apps.twitter"); ?>
                 </p>
             </a>
             <a class="osekai__apps-dropdown-mobile-button" href="https://discord.gg/Rj3AYEkJj4">
@@ -377,14 +440,6 @@ foreach ($apps as $a) {
             </p>
             <div class="osekai__apps-dropdown-bottomleft-extra-icon">
                 <i class="fas fa-heart"></i>
-            </div>
-        </a>
-        <a class="osekai__apps-dropdown-bottomleft-extra" href="https://twitter.com/osekaiapp">
-            <p>
-                <?= GetStringRaw("navbar", "apps.twitter"); ?>
-            </p>
-            <div class="osekai__apps-dropdown-bottomleft-extra-icon">
-                <i class="fab fa-twitter"></i>
             </div>
         </a>
         <a rel="me" href="https://bsky.app/profile/osekai.net" class="osekai__apps-dropdown-bottomleft-extra">

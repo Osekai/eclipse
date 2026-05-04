@@ -1,45 +1,53 @@
 body {
-    --sat: 1;
-    --l-100: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 100%);
-    --l-96: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 96%);
-    --l-93: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 93%);
-    --l-90: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 90%);
-    --l-80: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 80%);
-    --l-70: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 70%);
-    --l-60: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 60%);
-    --l-50: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 50%);
+    --sat: 2;
 
-    --col-30: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 30%);
-    --col-25: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 25%);
-    --col-23: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 23%);
-    --col-19: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 19%);
-    --col-16: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 16%);
-    --col-13: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 13%); /* navbar */
-    --col-11: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 11%);
-    --body: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 9.8%);
-    --col-8: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 8%);
-    --col-7: hsl(var(--accent_hue_nodeg), calc(31% * var(--sat)), 7.3%); /* sidebar */
+    /* Light spectrum (soft & clean) */
+    --l-100: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 98%);
+    --l-96: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 95%);
+    --l-93: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 90%);
+    --l-90: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 85%);
+    --l-80: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 70%);
+    --l-70: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 60%);
+    --l-60: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 50%);
+    --l-50: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 40%);
 
+    /* Dark spectrum (deep and modern) */
+    --col-30: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 30%);
+    --col-25: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 25%);
+    --col-23: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 22%);
+    --col-19: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 18%);
+    --col-16: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 15%);
+    --col-13: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 13%); /* navbar */
+    --col-11: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 11%);
+    --body: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 9%);
+    --col-8: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 8%);
+    --col-7: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 7.3%); /* sidebar */
+
+    /* Sat-variants (preserve contrast) */
     --col-50-30: hsl(var(--accent_hue_nodeg), calc(50% * var(--sat)), 30%);
     --col-50-50: hsl(var(--accent_hue_nodeg), calc(50% * var(--sat)), 50%);
     --col-70-50: hsl(var(--accent_hue_nodeg), calc(70% * var(--sat)), 50%);
 
+    /* Highlights & text - using RGB to maintain structure */
     --highlight-base: 255,255,255;
     --highlight: var(--highlight-base);
 
     --headers-base: 255,255,255;
     --headers: var(--headers-base);
 
-    --content: hsl(var(--accent_hue_nodeg), 24.3%, 95.3%);   
-    
+    --content: hsl(var(--accent_hue_nodeg), calc(17% * var(--sat)), 95%);
+
+    /* Theming references */
     --flat_background: var(--body) !important;
     background-color: var(--body);
+
     --flat_bg_a1: var(--col-19);
     --flat_bg_a2: var(--col-13);
     --flat_bg_a3: var(--col-16);
     --flat_bg_a4: var(--col-19);
     --flat_bg_a5: var(--col-25);
     --flat_bg_a6: var(--col-30);
+
     --flat_active: rgb(240,240,240);
     --flat_text: rgb(220,220,220);
 }

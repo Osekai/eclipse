@@ -1,5 +1,6 @@
 <?php
-
+header("Location: https://inex.osekai.net/rankings");
+exit;
 $name = "Osekai Rankings • Unknown page";
 $description = "uh oh";
 $tags = "";

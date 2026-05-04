@@ -165,7 +165,7 @@ html {
 
 body {
     width: 100%;
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'Comfortaa', sans-serif !important;
     color: white;
     padding-top: var(--navheight);
     overflow-x: hidden;
@@ -5189,3 +5189,9 @@ input[type='range']:focus::-ms-fill-upper {
     border-radius: 4px;
 }
 
+
+
+
+#notif__bell__button {
+    display: none;
+}

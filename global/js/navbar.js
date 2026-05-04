@@ -502,18 +502,6 @@ async function initSettingsPages() {
         }
     },
     {
-        name: "medals",
-        visualName: "medals",
-        icon: "oif-app-medals",
-        generate: async function (htmlInner) {
-            var section = settingUtils.genericSection();
-            settingUtils.linkedCheckbox(GetStringRawNonAsync("navbar", "settings.medals.hideMedalsWhenFilterEnabled"), "settings_medals__hidemedalswhenunobtainedfilteron", section, false, function (enabled) {
-                if (typeof filterAchieved != 'undefined') filterAchieved(true, true);
-            });
-            htmlInner.appendChild(section);
-        }
-    },
-    {
         name: "profiles",
         visualName: "profiles",
         icon: "oif-app-profiles",
