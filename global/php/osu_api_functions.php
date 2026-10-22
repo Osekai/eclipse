@@ -1,6 +1,15 @@
 <?php
 function GetBearer()
 {
+    // token is a server credential, shared across all users
+    $cached = Caching::getCache('osu_access_token3');
+    if ($cached !== null) {
+        $_SESSION['access_token'] = $cached;
+        $_SESSION['access_token_timer'] = time();
+        $_SESSION['access_token_expiration'] = 3600;
+        return true;
+    }
+
     $post = [
         'client_id' => OSU_OAUTH_CLIENT_ID,
         'client_secret' => OSU_OAUTH_CLIENT_SECRET,
@@ -12,27 +21,50 @@ function GetBearer()
     curl_setopt($oAccess, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($oAccess, CURLOPT_POSTFIELDS, $post);
 
-    $response = json_decode(curl_exec($oAccess), true);
-
+    $raw = curl_exec($oAccess);
+    $httpCode = curl_getinfo($oAccess, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($oAccess);
     curl_close($oAccess);
 
-    $date = new DateTime();
+    if ($raw === false) {
+        trigger_error("GetBearer: curl failed - $curlError", E_USER_WARNING);
+                echo "Sorry, we can't display this page at the moment. " ;
+        exit;
+        return false;
+    }
 
+    $response = json_decode($raw, true);
+
+    if (!is_array($response) || !isset($response['access_token'])) {
+        trigger_error("GetBearer: bad token response (http $httpCode) - " . substr($raw, 0, 200), E_USER_WARNING);
+        echo "Sorry, we can't display this page at the moment. " . $httpCode;
+        exit;
+        return false;
+    }
+
+    // halved because saveCache doubles numeric expiries; minus a margin so we never serve a dead token
+    Caching::saveCache('osu_access_token3', 86400/4, $response['access_token']);
+
+    $date = new DateTime();
     $_SESSION['access_token_timer'] = $date->getTimestamp();
     $_SESSION['access_token'] = $response['access_token'];
     $_SESSION['access_token_expiration'] = $response['expires_in'];
+
+if (function_exists('eclipse_send_log')) {
+        eclipse_send_log('eclipse.bearer_refresh', [
+            'expires_in' => $response['expires_in'],
+            'source' => 'osu_oauth',
+        ], 'INFO');
+    }
+
+
+
+    return true;
 }
 
 function IsExpired()
 {
-    if (isset($_SESSION['access_token_expiration'])) {
-        $timer = intval($_SESSION['access_token_timer']);
-        $expiration = $_SESSION['access_token_expiration'] + $timer;
-        $date = new DateTime();
-        return $expiration < $date->getTimestamp();
-    } else {
-        return true;
-    }
+    return true; // eh
 }
 
 function GetHeaders()
@@ -63,6 +95,15 @@ function curlRequestUser($strSearch)
 
 function v2_getUser($userID, $mode = null, $sendMedals = true, $useAllMedals = true)
 {
+      if (function_exists('eclipse_send_log')) {
+        eclipse_send_log('eclipse.user_get', [
+            'user_id' => $userID,
+            'mode' => $mode ?? 'null',
+        ], 'INFO');
+    }
+
+
+
     $useAllMedals = filter_var($useAllMedals, FILTER_VALIDATE_BOOLEAN);
     if (IsExpired() == true) GetBearer();
     if ($userID == 727) $userID = 124493; //chocomint exception
@@ -335,6 +376,8 @@ function v2_getUser($userID, $mode = null, $sendMedals = true, $useAllMedals = t
         } else {
             $colOsu['statistics']['hit_accuracy'] = 0;
         }
+
+
 
         return json_encode($colOsu);
     }

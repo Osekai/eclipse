@@ -33,11 +33,7 @@ $tooltipText = "This debug panel is so that you, and our team, can make sure Ose
         </div>
         <p><?= GetStringRaw("general", "page.generatedIn", ["<strong>" . $time . "</strong>"]); ?></p>
         <p>Aborted Session Saves: <strong><?= $abortedSaves; ?></strong></p>
-        <p style="font-size: 10px">Commit <strong><a href="https://github.com/Osekai/osekai/commit/<?= $gitHash ?>"><?= $gitHash ?></a></strong>
-            (branch <strong>
-                <?= $gitBranchLink != "" ? '<a href="' . $gitBranchLink . '">' . $gitBranchName . '</a>' : $gitBranchName ?></strong>)
 
-        <p style="font-size: 10px"><?= $gitDate; ?> UTC</p>
 
         <p style="font-weight: 900; text-decoration: underline;" onclick="togglePermissionPanel()">View User Permissions</p>
     </div>

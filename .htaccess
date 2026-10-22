@@ -1,17 +1,5 @@
-Options +FollowSymlinks
-
 RewriteEngine On
-
-DirectoryIndex index.php
-
-ErrorDocument 404 /404/index.php
-
-<FilesMatch ".(eot|otf|ttf|woff|woff2)">
-    Header always set Access-Control-Allow-Origin "*"
-</FilesMatch>
-
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php [NC,L] 
-
+RewriteCond %{REQUEST_URI} !^/router\.php$
+RewriteCond %{REQUEST_URI} \.php$ [OR]
+RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+RewriteRule ^(.*)$ /router.php [QSA,L]

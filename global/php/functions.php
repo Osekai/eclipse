@@ -2,6 +2,9 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . "/config.php");
 
+// drop this function into the shared/global file
+
+
 if (isset($app)) {
     // stops the flash of white
     echo "<!DOCTYPE html>";

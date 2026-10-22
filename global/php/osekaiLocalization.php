@@ -315,7 +315,9 @@ setlocale(LC_ALL, $currentLocale['code']);
 
 function setLocaleCookie($text)
 {
+
     setcookie("locale", $text, 2147483647, "/");
+    
     //echo "updated to " . $text . "<pre>";
     //var_dump(debug_backtrace());
     //echo "</pre>";
