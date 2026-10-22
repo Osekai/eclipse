@@ -1,4 +1,6 @@
 <?php
+header("Location: https://inex.osekai.net/omh/retro_achiever");
+exit;
 $app = "custom";
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 ?>

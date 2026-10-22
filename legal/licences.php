@@ -1,4 +1,6 @@
 <?php
+header("Location: https://inex.osekai.net/legal/licences");
+exit;
 $app = "home";
 include_once($_SERVER['DOCUMENT_ROOT'] . "/global/php/functions.php");
 ?>

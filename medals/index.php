@@ -1,6 +1,6 @@
 <?php
 if(!isset($_GET['old'])) {
-header("Location: https://inex.osekai.net/medals/" . $_GET['medal']);
+header("Location: https://inex.osekai.net/medals/" . rawurlencode($_GET['medal'] ?? ""));
 exit;
 }
 
