@@ -1,4 +1,13 @@
 <?php
+// profiles moved to inex
+if (isset($_GET['user'])) {
+    header("Location: https://inex.osekai.net/profiles/" . rawurlencode($_GET['user']));
+} else {
+    header("Location: https://inex.osekai.net/profiles");
+}
+exit;
+?>
+<?php
 $app = "profiles";
 $manual_frontend = true;
 
